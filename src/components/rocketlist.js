@@ -5,15 +5,16 @@ const RocketList = props => {
   return (
       <div className="rocket-list">
         <h4>Rockets Launched at {props.pad.name}</h4>
-        {props.rockets.map((rocket, index) => {
-          return (
-            <div className="rocket-item" key={index}>
-              <div>{rocket.name}</div>
-              <div>Family: {rocket.familyname}</div>
-              <div>Configuration: {rocket.configuration}</div>
-            </div>
-          );
-        })}
+        {props.rockets.length === 0 && <div>{'No launch data found'}</div>}
+          {props.rockets.length > 0 && props.rockets.map((rocket, index) => {
+            return (
+              <div className="rocket-item" key={index}>
+                <div>{rocket.name}</div>
+                <div>Family: {rocket.familyname}</div>
+                <div>Configuration: {rocket.configuration}</div>
+              </div>
+            );
+          })}
       </div>
   );
 };

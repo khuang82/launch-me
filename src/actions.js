@@ -22,9 +22,9 @@ const gotLaunchData = (padId, data) => ({
   data
 });
 
-const gotLaunchDataError = (locationId, data) => ({
+const gotLaunchDataError = (padId, data) => ({
   type: GOT_LAUNCH_DATA_ERROR,
-  locationId,
+  padId,
   data
 });
 
@@ -47,9 +47,10 @@ export const getLocations = () => {
 
 export const getPads = (locationId, name) => {
   return dispatch => {
-    fetch(URL_ROOT + 'pad/?limit=30&locationid=' + locationId)
+    fetch(URL_ROOT + 'pad/?limit=50&locationid=' + locationId)
       .then(response => response.json())
       .then(responseBody => {
+        console.log(responseBody.total > responseBody.count);
         responseBody.pads.forEach(item => {
           dispatch(gotPadData(item.id, item));
         });
