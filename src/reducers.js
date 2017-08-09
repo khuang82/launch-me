@@ -6,7 +6,7 @@ import {
 } from './actions';
 
 
-const singlePadReducer = (state = {}, action, rockets) => {
+const singlePadReducer = (state = {}, action, rockets = {}) => {
   switch (action.type) {
     case GOT_PAD_DATA:
       return {
@@ -45,6 +45,7 @@ const padsReducer = (state = {}, action, rockets) => {
 const launchDataReducer = (state = {}, action) => {
   switch (action.type) {
     case GOT_LAUNCH_DATA:
+    case GOT_LAUNCH_DATA_ERROR:
       // Object.assign and spread operator only do a shallow copy
       const rockets = _.isEmpty(state.rockets) ? {} : _.clone(state.rockets);
 
@@ -74,13 +75,12 @@ export const rootReducer = (state = {}, action) => {
     case GOT_PAD_DATA:
       return { ...state, pads: padsReducer(state.pads, action) };
     case GOT_LAUNCH_DATA:
+    case GOT_LAUNCH_DATA_ERROR:
       return {
         ...state,
         ...launchDataReducer(state, action),
         activePad: action.padId
       };
-    case GOT_LAUNCH_DATA_ERROR:
-      return state;
 
 
     default:

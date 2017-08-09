@@ -48,8 +48,10 @@ const getActivePad = state => {
   if (!state.activePad) {
     return {};
   }
+  const pad = state.pads[state.activePad];
   return {
-    rockets: state.pads[state.activePad].rockets.map(id => state.rockets[id])
+    pad: pad,
+    rockets: pad.rockets ? pad.rockets.map(id => state.rockets[id]) : []
   };
 };
 
