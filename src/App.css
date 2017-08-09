@@ -1,0 +1,19 @@
+.map-container {
+  box-sizing: border-box;
+  width: 60%;
+  height: 600px;
+  padding: 10px;
+  float: left;
+}
+.rocket-container {
+  box-sizing: border-box;
+  width: 40%;
+  padding: 10px;
+  float: left;
+}
+.rocket-list {
+  font-size: 14px;
+}
+.rocket-item {
+  margin-bottom: 1em;
+}
