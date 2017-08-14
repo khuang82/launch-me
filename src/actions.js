@@ -61,14 +61,14 @@ export const getPads = (locationId, name) => {
 export const getLaunchData = (padId) => {
   return dispatch => {
     // 'locationid' param in launch API is wrong - should be the pad ID
-    fetch(URL_ROOT + 'launch/?limit=200&locationid=' + padId)
+    fetch(URL_ROOT + 'launch/?limit=30&locationid=' + padId)
       .then(response => response.json())
       .then(responseBody => {
         if (responseBody.status === 'error') {
           dispatch(gotLaunchDataError(padId, responseBody));
         } else {
-          if (responseBody.total > 200) {
-            console.log('over 200 launches');
+          if (responseBody.total > 30) {
+            console.log('over 30 launches @ pad:', padId);
           }
           dispatch(gotLaunchData(padId, responseBody));
         }

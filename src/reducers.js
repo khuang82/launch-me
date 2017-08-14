@@ -47,22 +47,25 @@ const launchDataReducer = (state = {}, action) => {
     case GOT_LAUNCH_DATA:
     case GOT_LAUNCH_DATA_ERROR:
       // Object.assign and spread operator only do a shallow copy
-      const rockets = _.isEmpty(state.rockets) ? {} : _.clone(state.rockets);
+      const rockets = _.clone(state.rockets || {});
+      const currentRockets = {};
 
       action.data.launches.forEach((launch) => {
-        if (!rockets[launch.rocket.id]) {
-          rockets[launch.rocket.id] = {
-            id: launch.rocket.id,
-            name: launch.rocket.name,
-            configuration: launch.rocket.configuration,
-            familyname: launch.rocket.familyname,
-          };
+        const rocket = {
+          id: launch.rocket.id,
+          name: launch.rocket.name,
+          configuration: launch.rocket.configuration,
+          familyname: launch.rocket.familyname
+        };
+        currentRockets[rocket.id] = { ...rocket };
+        if (!rockets[rocket.id]) {
+          rockets[rocket.id] = { ...rocket };
         }
       });
 
       return {
         ...state,
-        pads: padsReducer(state.pads, action, rockets),
+        pads: padsReducer(state.pads, action, currentRockets),
         rockets
       };
     default:
