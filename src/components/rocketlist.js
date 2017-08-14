@@ -9,7 +9,7 @@ const RocketList = props => {
           {props.rockets.length > 0 && props.rockets.map((rocket, index) => {
             return (
               <div className="rocket-item" key={index}>
-                <div>{rocket.name}</div>
+                <div><strong>{rocket.name}</strong></div>
                 <div>Family: {rocket.familyname}</div>
                 <div>Configuration: {rocket.configuration}</div>
               </div>
