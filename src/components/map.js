@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 import { getLaunchData } from '../actions';
 
 const Map = withGoogleMap(props => {
@@ -21,7 +21,13 @@ const Map = withGoogleMap(props => {
           key={index}
           position={marker.position}
           onClick={() => props.markerOnClick(marker)}
-        />
+        >
+          {props.activePad === marker.id && (
+            <InfoWindow>
+              <div>{props.padName}</div>
+            </InfoWindow>
+          )}
+        </Marker>
       ))}
     </GoogleMap>
   );
@@ -32,11 +38,14 @@ Map.defaultProps = {
 };
 
 Map.propTypes = {
-  markers: PropTypes.object.isRequired
+  markers: PropTypes.object.isRequired,
+  activePad: PropTypes.number,
+  padName: PropTypes.string
 };
 
 const mapStateToProps = state => {
   return {
+    activePad: state.activePad,
     markers: state.pads
   };
 };

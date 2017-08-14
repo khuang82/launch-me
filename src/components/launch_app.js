@@ -25,6 +25,7 @@ class LaunchApp extends Component {
             containerElement={<div style={{ height: '100%' }}/>}
             mapElement={<div style={{ height: '100%' }}/>}
             onMapLoad={this.handleMapLoad}
+            padName={this.props.activePad.pad && this.props.activePad.pad.name}
           />
         </div>
         <div className="rocket-container">
